@@ -4,6 +4,8 @@ import './App.css';
 //
 import PriceList from './components/PriceList'
 import ViewTab from './components/ViewTab'
+import MonthPicker from './components/MonthPicker'
+
 import { LIST_VIEW } from './utility';
 
 const items = [
@@ -35,6 +37,7 @@ const items = [
 function App() {
   return (
     <div className="App">
+      <MonthPicker year={2020} month={1}/>
       <ViewTab activeTab={LIST_VIEW} onTabChange={(view)=>{}}/>
       <PriceList items={items} onModifyItem={()=>{}} onDeleteItem={()=>{}}/>
     </div>
