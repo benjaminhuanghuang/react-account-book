@@ -41,6 +41,14 @@ const _items = [
   },
 ];
 
+const newItem = {
+  id: 1,
+  title: "ddddd",
+  price: 200,
+  date: "2020-1-1",
+  cid: "1",
+};
+
 function Home() {
   const [items, setItems] = useState(_items);
   const [currentDate, setCurrentDate] = useState(parseToYearAndMonth());
@@ -51,8 +59,28 @@ function Home() {
     return item;
   });
 
-  const modifyItem = () => {};
-  const deleteItem = () => {};
+  const createItem = () => {
+    setItems([newItem, ...items]);
+  };
+
+  const modifyItem = (modifiedItme) => {
+    setItems(
+      items.map((item) => {
+        if (item.id === modifiedItme.id) {
+          return {
+            ...item,
+            title: "changed",
+          };
+        } else {
+          return item;
+        }
+      })
+    );
+  };
+
+  const deleteItem = (deletedItem) => {
+    setItems(items.filter((item) => item.id !== deletedItem.id));
+  };
   return (
     <>
       <div className="App-header">
@@ -61,7 +89,9 @@ function Home() {
         </div>
         <div className="row">
           <div className="col">
-            <MonthPicker year={currentDate.year} month={currentDate.month} onChange={() => {}} />
+            <MonthPicker year={currentDate.year} month={currentDate.month} onChange={(year, month) => {
+              setCurrentDate({year, month})
+            }} />
           </div>
           <div className="col">
             <TotalPrice />
@@ -79,9 +109,7 @@ function Home() {
         {tabView === LIST_VIEW && (
           <PriceList items={itemsWithCategory} onModifyItem={modifyItem} onDeleteItem={deleteItem} />
         )}
-        {tabView === CHART_VIEW && (
-          <h1>Chart</h1>
-        )}
+        {tabView === CHART_VIEW && <h1>Chart</h1>}
       </div>
     </>
   );
