@@ -1,11 +1,25 @@
-import React from 'react'
+import React from "react";
+import PropTypes from "prop-types";
 
-function TotalPrice() {
+function TotalPrice({ income, outcome }) {
   return (
-    <div>
-      
+    <div className="row">
+      <div className="col">
+        <h5 className="income">
+          Income: <span>{income}</span>
+        </h5>
+      </div>
+      <div className="col">
+        <h5 className="outcome">
+          Outcome: <span>{outcome}</span>
+        </h5>
+      </div>
     </div>
-  )
+  );
 }
 
-export default TotalPrice
+TotalPrice.propTypes ={
+  income: PropTypes.number.isRequired,
+  outcome: PropTypes.number.isRequired
+}
+export default TotalPrice;

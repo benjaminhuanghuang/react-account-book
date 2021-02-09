@@ -3,7 +3,7 @@ https://coding.imooc.com/class/chapter/302.html#Anchor
 
 https://github.com/vkcyan/gotoReact-/tree/master/react-jianshu
 
->React, bootstrap, ionicicon     
+>React, bootstrap, ionicicon, UT    
 
 ## 第1章 课程介绍 试看
 介绍了整个课程的背景知识，项目简介，学习流程，可以掌握的知识点，以及学习方法和前置知识

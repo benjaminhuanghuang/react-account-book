@@ -94,7 +94,7 @@ function Home() {
             }} />
           </div>
           <div className="col">
-            <TotalPrice />
+            <TotalPrice income={100} outcome={2000}/>
           </div>
         </div>
       </div>
