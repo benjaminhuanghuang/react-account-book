@@ -2,44 +2,12 @@ import logo from './logo.svg';
 import './App.css';
 
 //
-import PriceList from './components/PriceList'
-import ViewTab from './components/ViewTab'
-import MonthPicker from './components/MonthPicker'
+import Home from './containers/Home'
 
-import { LIST_VIEW } from './utility';
-
-const items = [
-  {
-    "id":1,
-    "title":'ddddd',
-    "price":200,
-    "date":"2020-1-1",
-    "category":{
-      "id": "1",
-      "name" : "travel",
-      "type":"outcome",
-      "iconName": 'ios-plane'
-    }
-  }
-  ,{
-    "id":2,
-    "title":'ccccc',
-    "price":200,
-    "date":"2020-1-1",
-    "category":{
-      "id": "1",
-      "name" : "travel",
-      "type":"outcome",
-      "iconName": 'ios-plane'
-    }
-  }
-]
 function App() {
   return (
     <div className="App">
-      <MonthPicker year={2020} month={1}/>
-      <ViewTab activeTab={LIST_VIEW} onTabChange={(view)=>{}}/>
-      <PriceList items={items} onModifyItem={()=>{}} onDeleteItem={()=>{}}/>
+     <Home/>
     </div>
   );
 }

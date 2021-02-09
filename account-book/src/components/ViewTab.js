@@ -16,7 +16,7 @@ const ViewTab = ({ activeTab, onTabChange }) => {
           href="# "
           onClick={(event) => {
             event.preventDefault();
-            onTabChange();
+            onTabChange(LIST_VIEW);
           }}
         >
           <Ionicon className="rounded-circle mr-2" fontSize="25px" color="#007bff" icon="ios-paper" />
@@ -29,7 +29,7 @@ const ViewTab = ({ activeTab, onTabChange }) => {
           href="# "
           onClick={(event) => {
             event.preventDefault();
-            onTabChange();
+            onTabChange(CHART_VIEW);
           }}
         >
           <Ionicon className="rounded-circle" fontSize="25px" color="#007bff" icon="ios-pie" />

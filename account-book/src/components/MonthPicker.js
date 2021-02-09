@@ -3,8 +3,11 @@ import PropTypes from "prop-types";
 
 import { padLeft, range } from "../utility";
 
-function MonthPicker({ year, month }) {
+function MonthPicker({ year, month, onChange }) {
   const [isOpen, setIsOpen] = useState(false);
+  const [selectedYear, setSelectedYear] = useState(year);
+  const [selectedMonth, setSelectedMonth] = useState(month);
+
   const monthRange = range(12, 1);
   const yearRange = range(9, -4).map((number) => number + year);
 
@@ -23,7 +26,15 @@ function MonthPicker({ year, month }) {
           <div className="row">
             <div className="col border-right">
               {yearRange.map((yearNumber, index) => (
-                <a key={index} className="dropdown-item" href="# ">
+                <a
+                  key={index}
+                  className={yearNumber === selectedYear ? "dropdown-item active" : "dropdown-item"}
+                  href="# "
+                  onClick={(event) => {
+                    event.preventDefault();
+                    setSelectedYear(yearNumber);
+                  }}
+                >
                   {yearNumber}
                 </a>
               ))}
@@ -31,7 +42,17 @@ function MonthPicker({ year, month }) {
             <div className="col">
               <div className="col" border-right>
                 {monthRange.map((monthNumber, index) => (
-                  <a key={index} className="dropdown-item" href="# ">
+                  <a
+                    key={index}
+                    className={monthNumber === selectedMonth ? "dropdown-item active" : "dropdown-item"}
+                    href="# "
+                    onClick={(event) => {
+                      event.preventDefault();
+                      setSelectedMonth(monthNumber);
+                      setIsOpen(false);
+                      onChange(selectedYear, selectedMonth);
+                    }}
+                  >
                     {padLeft(monthNumber)}
                   </a>
                 ))}
@@ -44,4 +65,9 @@ function MonthPicker({ year, month }) {
   );
 }
 
+MonthPicker.propTypes = {
+  year: PropTypes.number.isRequired,
+  month: PropTypes.number.isRequired,
+  onChange: PropTypes.func.isRequired,
+};
 export default MonthPicker;
