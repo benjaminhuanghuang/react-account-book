@@ -37,5 +37,10 @@ describe('test MonthPicker component', ()=>{
     expect(wrapper.find('.dropdown-menu').length).toEqual(1)
     expect(wrapper.find('.years-range .dropdown-item').length).toEqual(9)
     expect(wrapper.find('.months-range .dropdown-item').length).toEqual(12)
+    expect(wrapper.find('.years-range .dropdown-item.active').text).toEqual('2018')
+    expect(wrapper.find('.mounts-range .dropdown-item.active').text).toEqual('08')
+
   })
+
+  
 })
