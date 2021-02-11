@@ -57,7 +57,7 @@ const tabsText = [LIST_VIEW, CHART_VIEW];
 function Home() {
   const [items, setItems] = useState(_items);
   const [currentDate, setCurrentDate] = useState(parseToYearAndMonth());
-  const [currTabIndex, setCurrTabIndex] = useState(0);
+  const [tabIndex, setTabIndex] = useState(0);
   const a = useContext(AppContext);
   let history = useHistory();
 
@@ -67,30 +67,19 @@ function Home() {
   });
 
   const createItem = () => {
-     //history.push("/create");
+     history.push("/create");
   };
 
-  const modifyItem = (modifiedItme) => {
-    setItems(
-      items.map((item) => {
-        if (item.id === modifiedItme.id) {
-          return {
-            ...item,
-            title: "changed",
-          };
-        } else {
-          return item;
-        }
-      })
-    );
+  const modifyItem = (item) => {
+    history.push(`/edit/${item.id}`);
   };
 
   const deleteItem = (deletedItem) => {
     setItems(items.filter((item) => item.id !== deletedItem.id));
   };
 
-  const changeView = (index) => {
-    setCurrTabIndex(index);
+  const changeView = (index) => {  
+    setTabIndex(index);
   };
 
   return (
@@ -115,7 +104,7 @@ function Home() {
         </div>
       </div>
       <div className="content-area py-3 px-3">
-        <Tabs activeIndex={0} onTabChang={() => {}}>
+        <Tabs activeIndex={tabIndex} onTabChange={changeView}>
           <Tab>
             <Ionicon className="rounded-circle mr-2" fontSize="25px" color="#007bff" icon="ios-paper" />
             List
@@ -125,11 +114,11 @@ function Home() {
             Chart
           </Tab>
         </Tabs>
-        <CreateBtn />
-        {currTabIndex === 0 && (
+        <CreateBtn onClick={createItem}/>
+        {tabIndex === 0 && (
           <PriceList items={itemsWithCategory} onModifyItem={modifyItem} onDeleteItem={deleteItem} />
         )}
-        {currTabIndex === 1 && <h1>Chart</h1>}
+        {tabIndex === 1 && <h1>Chart</h1>}
       </div>
     </>
   );
