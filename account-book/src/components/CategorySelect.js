@@ -8,6 +8,9 @@ function CategorySelect({ categories, selectedCategory, onSelectCategory }) {
     <div className="categroy-select-component">
       <div className="row">
         {categories.map((category, index) => {
+          const icnoColor = selectedCategoryId === category.id ? "#fff" : "#555";
+          const backColor = selectedCategoryId === category.id ? "#347eff" : "#efefef";
+
           const activeClassName =
             selectedCategoryId === category.id ? "category-item col-3 active" : "category-item col-3";
           return (
@@ -20,7 +23,13 @@ function CategorySelect({ categories, selectedCategory, onSelectCategory }) {
                 onSelectCategory(category);
               }}
             >
-              <Ionicon className="rounded-circle" fontSize="50px" color="#555" icon={category.iconName} />
+              <Ionicon
+                style={{ backgroundColor: backColor, padding: "5px" }}
+                className="rounded-circle"
+                fontSize="50px"
+                color={icnoColor}
+                icon={category.iconName}
+              />
             </div>
           );
         })}

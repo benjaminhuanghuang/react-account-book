@@ -1,16 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import logo from "../logo.svg";
 import Ionicon from "react-ionicons";
+import { useHistory } from "react-router-dom";
 //
 //
 import PriceList from "../components/PriceList";
-import ViewTab from "../components/ViewTab";
 import { Tabs, Tab } from "../components/Tabs";
 import MonthPicker from "../components/MonthPicker";
 import CreateBtn from "../components/CreateBtn";
 
 import { CHART_VIEW, LIST_VIEW, parseToYearAndMonth } from "../utility";
 import TotalPrice from "../components/TotalPrice";
+import { AppContext } from "../App";
 
 const categories = {
   1: {
@@ -57,6 +58,8 @@ function Home() {
   const [items, setItems] = useState(_items);
   const [currentDate, setCurrentDate] = useState(parseToYearAndMonth());
   const [currTabIndex, setCurrTabIndex] = useState(0);
+  const a = useContext(AppContext);
+  let history = useHistory();
 
   let itemsWithCategory = items.map((item) => {
     item.category = categories[item.cid];
@@ -64,7 +67,7 @@ function Home() {
   });
 
   const createItem = () => {
-    setItems([newItem, ...items]);
+     //history.push("/create");
   };
 
   const modifyItem = (modifiedItme) => {

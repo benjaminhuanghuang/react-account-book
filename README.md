@@ -1,7 +1,7 @@
 # React16组件化+测试+全流程 实战“在线账本”项目
 https://coding.imooc.com/class/chapter/302.html#Anchor
 
-https://github.com/vkcyan/gotoReact-/tree/master/react-jianshu
+https://github.com/TechCheng/React/tree/main/money-book
 
 >React, bootstrap, ionicicon, UT    
 
