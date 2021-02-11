@@ -17,7 +17,7 @@ let props_with_item = {
 let wrapper, formInstance, wrapper2;
 
 export const getInputValue = (selector, wrapper) => {
-  wrapper.find(selector).instance().value;
+  return wrapper.find(selector).instance().value;
 };
 
 export const setInputValue = (selector, newValue, wrapper) => {
@@ -25,7 +25,7 @@ export const setInputValue = (selector, newValue, wrapper) => {
 };
 
 describe("test PriceForm component", () => {
-  beforeEeach(() => {
+  beforeEach(() => {
     wrapper = mount(<PriceForm {...props} />);
     wrapper2 = mount(<PriceForm {...props_with_item} />);
     formInstance = wrapper.find(PriceForm).instance();
@@ -52,5 +52,63 @@ describe("test PriceForm component", () => {
         expect(wrapper.find('.alert').length).toEqual(1)
         expect(props_with_item).not.toHaveBeenCalled()
     })
+    it("smubmit form with invalid should show alert", ()=>{
+        setInputValue('#title', 'test', wrapper)
+        setInputValue('#price', '-20', wrapper)
+        wrapper.find('form').simulate('submit')
+        expect(formInstance.state.validatePass).toEqual(false)
+        expect(wrapper.find('.alert').length).toEqual(1)
+        expect(props_with_item).not.toHaveBeenCalled()
+    })
+    it("smubmit form with invalid date show alert", ()=>{
+        setInputValue('#title', 'test', wrapper)
+        setInputValue('#price', '20', wrapper)
+        setInputValue('#date', 'wrong date', wrapper)
+        wrapper.find('form').simulate('submit')
+        expect(formInstance.state.validatePass).toEqual(false)
+        expect(wrapper.find('.alert').length).toEqual(1)
+        expect(props_with_item).not.toHaveBeenCalled()
+    })
+    it("smubmit form with valid data", ()=>{
+        setInputValue('#title', 'test', wrapper)
+        setInputValue('#price', '20', wrapper)
+        setInputValue('#date', '2008-10-01', wrapper)
+        const newItem = {
+          title:'test',
+          price:20,
+          date:'2008-10-01',
+        }
+        wrapper.find('form').simulate('submit')
+        expect(formInstance.state.validatePass).toEqual(false)
+        expect(wrapper.find('.alert').length).toEqual(1)
+        expect(props_with_item).toHaveBeenCalledWith(newItem, false)
+    })
+    it("click cancel should call the right callback", ()=>{
+        
+        wrapper.find('button').last.simulate('click')
+        expect(props.onCancelSubmit).toHaveBeenCalled()
+    })
+  })
+
+  describe("test PriceForm with item data", () =>{
+    it("render PriceFrom with item should render the correct data to inputs", ()=>{
+      expect(getInputValue('#title', wrapper2)).toEqual(testItems[0].title)
+      expect(getInputValue('#price', wrapper2)).toEqual(testItems[0].price.toString())
+      expect(getInputValue('#date', wrapper2)).toEqual(testItems[0].date)
+    })
+
+    it("smubmit form with valid data", ()=>{
+      setInputValue('#title', 'new title', wrapper2)
+      setInputValue('#price', '20', wrapper2)
+      const newItem = {
+        ...testItems[0],
+        title:'new title',
+        price:20
+      }
+      wrapper2.find('form').simulate('submit')
+      expect(formInstance.state.validatePass).toEqual(false)
+      expect(wrapper2.find('.alert').length).toEqual(1)
+      expect(props_with_item).toHaveBeenCalledWith(newItem, true)     // true means edit
+  })
   })
 });
