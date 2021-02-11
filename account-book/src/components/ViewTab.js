@@ -47,4 +47,17 @@ ViewTab.propTypes = {
 
 ViewTab.defaultProps = {};
 
+
 export default ViewTab;
+
+
+
+/*  Sample  code
+
+<ViewTab
+  activeTab={tabView}
+  onTabChange={(view) => {
+    setTabView(view);
+  }}
+/>
+*/

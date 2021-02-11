@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import logo from "../logo.svg";
+import Ionicon from "react-ionicons";
 //
 //
 import PriceList from "../components/PriceList";
 import ViewTab from "../components/ViewTab";
+import { Tabs, Tab } from "../components/Tabs";
 import MonthPicker from "../components/MonthPicker";
 import CreateBtn from "../components/CreateBtn";
 
@@ -49,10 +51,12 @@ const newItem = {
   cid: "1",
 };
 
+const tabsText = [LIST_VIEW, CHART_VIEW];
+
 function Home() {
   const [items, setItems] = useState(_items);
   const [currentDate, setCurrentDate] = useState(parseToYearAndMonth());
-  const [tabView, setTabView] = useState(LIST_VIEW);
+  const [currTabIndex, setCurrTabIndex] = useState(0);
 
   let itemsWithCategory = items.map((item) => {
     item.category = categories[item.cid];
@@ -81,6 +85,11 @@ function Home() {
   const deleteItem = (deletedItem) => {
     setItems(items.filter((item) => item.id !== deletedItem.id));
   };
+
+  const changeView = (index) => {
+    setCurrTabIndex(index);
+  };
+
   return (
     <>
       <div className="App-header">
@@ -89,27 +98,35 @@ function Home() {
         </div>
         <div className="row">
           <div className="col">
-            <MonthPicker year={currentDate.year} month={currentDate.month} onChange={(year, month) => {
-              setCurrentDate({year, month})
-            }} />
+            <MonthPicker
+              year={currentDate.year}
+              month={currentDate.month}
+              onChange={(year, month) => {
+                setCurrentDate({ year, month });
+              }}
+            />
           </div>
           <div className="col">
-            <TotalPrice income={100} outcome={2000}/>
+            <TotalPrice income={100} outcome={2000} />
           </div>
         </div>
       </div>
       <div className="content-area py-3 px-3">
-        <ViewTab
-          activeTab={tabView}
-          onTabChange={(view) => {
-            setTabView(view);
-          }}
-        />
+        <Tabs activeIndex={0} onTabChang={() => {}}>
+          <Tab>
+            <Ionicon className="rounded-circle mr-2" fontSize="25px" color="#007bff" icon="ios-paper" />
+            List
+          </Tab>
+          <Tab>
+            <Ionicon className="rounded-circle" fontSize="25px" color="#007bff" icon="ios-pie" />
+            Chart
+          </Tab>
+        </Tabs>
         <CreateBtn />
-        {tabView === LIST_VIEW && (
+        {currTabIndex === 0 && (
           <PriceList items={itemsWithCategory} onModifyItem={modifyItem} onDeleteItem={deleteItem} />
         )}
-        {tabView === CHART_VIEW && <h1>Chart</h1>}
+        {currTabIndex === 1 && <h1>Chart</h1>}
       </div>
     </>
   );
