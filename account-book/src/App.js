@@ -17,6 +17,12 @@ function App() {
     items: flatternArr(testItems),
     categories: flatternArr(testCategories),
   };
+
+  const actions = {
+    deleteItem:(item)=>{
+      delete this.state.items[item.id]
+    }
+  }
   return (
     <AppContext.Provider value={state}>
       <Router>

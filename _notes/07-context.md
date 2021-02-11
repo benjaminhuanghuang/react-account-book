@@ -10,6 +10,7 @@
 
 ## 7-4 使用高阶组件实现 Context 重用 (12:21)
 withContext
+也可用uesContext
 
 ## 7-5 扩展作业
 
@@ -18,5 +19,7 @@ withContext
 ## 7-7 整合两个页面的逻辑和交互 二 - 编辑页面 (15:14)
 
 ## 7-8 阶段性总结 (07:26)
+![](./_images/dev-process1.png)
 
+![](./_images/dev-process.png)
 ## 7-9 扩展作业 - 应用状态分析与设计
